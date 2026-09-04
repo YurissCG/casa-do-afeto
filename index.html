@@ -25,11 +25,15 @@
     --font-display:'Yeseva One', serif;
     --font-body:'Work Sans', sans-serif;
     --font-hand:'Caveat', cursive;
+    --ods2:#DDA63A;
+    --ods3:#4C9F38;
+    --ods6:#26BDE2;
+    --ods10:#DD1367;
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
 
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; font-size:120%;}
 
   body{
     background:var(--bg);
@@ -153,7 +157,7 @@
     background:var(--bg);
     overflow:hidden;
     display:grid;
-    grid-template-columns:1.15fr .9fr;
+    grid-template-columns:1fr 1.05fr;
     gap:4vw;
   }
 
@@ -257,11 +261,11 @@
   .polaroid{
     position:relative;
     justify-self:end;
-    width:min(36vw, 440px);
+    width:min(44vw, 540px);
     background:var(--card);
-    padding:.8rem .8rem 2.6rem;
-    box-shadow:0 26px 50px rgba(43,32,19,.3);
-    transform:rotate(4deg);
+    padding:1rem 1rem 3rem;
+    box-shadow:0 32px 60px rgba(43,32,19,.35);
+    transform:rotate(3deg);
   }
 
   .polaroid::before{
@@ -288,7 +292,7 @@
 
   @media (max-width:900px){
     .hero{grid-template-columns:1fr; gap:2.2rem; padding-bottom:4rem;}
-    .polaroid{justify-self:center; width:min(72vw, 340px); margin-top:.5rem;}
+    .polaroid{justify-self:center; width:min(88vw, 420px); margin-top:.5rem;}
   }
 
 
@@ -416,6 +420,54 @@
   .pillar p{color:var(--ink-soft); font-size:.96rem;}
 
   @media (max-width:900px){ .pillars{grid-template-columns:1fr;} }
+
+  /* ---------- terceiro setor / empreendedorismo social ---------- */
+  .terceiro-setor h2{font-size:clamp(1.9rem,3.6vw,3rem); max-width:22ch; margin-bottom:2.2rem;}
+
+  .info-duo{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem;}
+
+  .info-card{background:var(--card); padding:2rem 1.8rem; border-radius:4px; border-top:3px solid var(--clay);}
+  .info-card h3{font-size:1.15rem; color:var(--clay-deep); margin-bottom:.7rem; font-family:var(--font-body); font-weight:700; letter-spacing:.02em;}
+  .info-card p{color:var(--ink-soft); font-size:1rem;}
+
+  @media (max-width:900px){ .info-duo{grid-template-columns:1fr;} }
+
+  /* ---------- marco legal ---------- */
+  .marco-legal h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:28ch; margin-bottom:1rem;}
+  .marco-legal .intro{color:var(--ink-soft); font-size:1.05rem; max-width:60ch; margin-bottom:1.8rem;}
+
+  .law-list{display:flex; flex-direction:column; gap:1rem; margin-bottom:1.8rem;}
+
+  .law-card{background:var(--card); border-left:4px solid var(--clay); padding:1.2rem 1.6rem;}
+  .law-card strong{display:block; color:var(--clay-deep); font-size:1rem; margin-bottom:.35rem; font-family:var(--font-body); font-weight:700;}
+  .law-card p{color:var(--ink-soft); font-size:.96rem;}
+
+  /* ---------- ODS ---------- */
+  .ods-section h2{font-size:clamp(1.9rem,3.6vw,3rem); max-width:26ch; margin-bottom:1rem;}
+  .ods-section .intro{color:var(--ink-soft); font-size:1.05rem; max-width:56ch; margin-bottom:2rem;}
+
+  .ods-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1.4rem;}
+
+  .ods-card{background:var(--card); border-radius:4px; padding:1.6rem 1.4rem;}
+
+  .ods-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    color:#fff;
+    font-family:var(--font-display);
+    font-size:1.3rem;
+    margin-bottom:.9rem;
+  }
+
+  .ods-card h3{font-size:1rem; color:var(--clay-deep); margin-bottom:.5rem; font-weight:700; font-family:var(--font-body); letter-spacing:.02em;}
+  .ods-card p{color:var(--ink-soft); font-size:.92rem;}
+
+  @media (max-width:900px){ .ods-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .ods-grid{grid-template-columns:1fr;} }
 
   /* ---------- process strip ---------- */
   .processo h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:26ch; margin-bottom:1.1rem;}
@@ -555,6 +607,9 @@
   <button class="tab active" data-target="hero">capa</button>
   <button class="tab" data-target="ideia">ideia</button>
   <button class="tab" data-target="dados">por quê</button>
+  <button class="tab" data-target="terceiro-setor">terceiro setor</button>
+  <button class="tab" data-target="marco-legal">a lei</button>
+  <button class="tab" data-target="ods">ods</button>
   <button class="tab" data-target="pilares">pilares</button>
   <button class="tab" data-target="produzir">o quê</button>
   <button class="tab" data-target="processo">como</button>
@@ -620,6 +675,70 @@
       </div>
     </div>
     <p class="lead-out reveal">É para esse cenário que a Casa do Afeto vai nascer.</p>
+  </section>
+
+  <section id="terceiro-setor" class="screen terceiro-setor">
+    <p class="kicker reveal">quem somos, na prática</p>
+    <h2 class="reveal">ONG, terceiro setor e empreendedorismo social</h2>
+    <div class="info-duo">
+      <div class="info-card reveal">
+        <h3>O que é uma ONG</h3>
+        <p>Organização Não Governamental: entidade privada, sem fins lucrativos, criada pela sociedade civil — não pelo Estado nem pelo mercado. É o chamado <strong>terceiro setor</strong>, ao lado do poder público (primeiro setor) e das empresas (segundo setor).</p>
+      </div>
+      <div class="info-card reveal">
+        <h3>O que é empreendedorismo social</h3>
+        <p>Usar as ferramentas de gestão e inovação do mundo dos negócios para resolver um problema social ou ambiental, medindo o resultado em vidas impactadas, não em lucro. É assim que a Casa do Afeto se organiza: uma ONG que funciona como um negócio de impacto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="marco-legal" class="screen marco-legal">
+    <p class="kicker reveal">o marco legal</p>
+    <h2 class="reveal">Por que negócio, sociedade e meio ambiente andam juntos por lei</h2>
+    <p class="intro reveal">Não existe uma única lei que "proíba abrir empresa sem causa social" — mas a legislação brasileira empurra, de vários lados, nessa direção:</p>
+    <div class="law-list">
+      <div class="law-card reveal">
+        <strong>Lei nº 6.938/1981 + Resolução CONAMA nº 237/1997</strong>
+        <p>Política Nacional do Meio Ambiente. Exige licenciamento ambiental antes mesmo de abrir diversas atividades econômicas: o impacto ambiental virou pré-requisito, não opção.</p>
+      </div>
+      <div class="law-card reveal">
+        <strong>Lei Complementar nº 182/2021 — Marco Legal das Startups</strong>
+        <p>Reconhece oficialmente o empreendedorismo como vetor de desenvolvimento econômico, social e ambiental, não só financeiro.</p>
+      </div>
+      <div class="law-card reveal">
+        <strong>Lei nº 13.019/2014 — Marco Regulatório das Organizações da Sociedade Civil</strong>
+        <p>Define como ONGs, como a Casa do Afeto, se organizam e se relacionam com o poder público.</p>
+      </div>
+    </div>
+    <p class="lead-out reveal">É nesse cenário que nascem projetos como o nosso: negócio, causa social e responsabilidade ambiental como uma coisa só.</p>
+  </section>
+
+  <section id="ods" class="screen ods-section">
+    <p class="kicker reveal">compromisso global</p>
+    <h2 class="reveal">Nossos compromissos dentro dos ODS da ONU</h2>
+    <p class="intro reveal">Dos 17 Objetivos de Desenvolvimento Sustentável da Agenda 2030 da ONU, a Casa do Afeto se compromete direto com 4:</p>
+    <div class="ods-grid">
+      <div class="ods-card reveal">
+        <span class="ods-badge" style="background:var(--ods2);">2</span>
+        <h3>Fome zero</h3>
+        <p>Cada refeição servida ataca direto a insegurança alimentar de quem vive nas ruas de BH.</p>
+      </div>
+      <div class="ods-card reveal">
+        <span class="ods-badge" style="background:var(--ods3);">3</span>
+        <h3>Saúde e bem-estar</h3>
+        <p>Escuta ativa e acolhimento cuidam também da saúde emocional de quem enfrenta abandono.</p>
+      </div>
+      <div class="ods-card reveal">
+        <span class="ods-badge" style="background:var(--ods6);">6</span>
+        <h3>Água limpa e saneamento</h3>
+        <p>Nossa cozinha e as ações de higiene ampliam o acesso à água potável para os assistidos.</p>
+      </div>
+      <div class="ods-card reveal">
+        <span class="ods-badge" style="background:var(--ods10);">10</span>
+        <h3>Redução das desigualdades</h3>
+        <p>Reinserimos socialmente quem foi tornado invisível, encurtando a distância entre ter e não ter casa.</p>
+      </div>
+    </div>
   </section>
 
   <section id="pilares" class="screen pilares-section">
@@ -710,7 +829,7 @@
       <div class="card-field"><dt>Serve</dt><dd>pessoas em situação de rua e de vulnerabilidade social, sem limite de idade</dd></div>
       <div class="card-field"><dt>Rende</dt><dd>um lugar para ser ouvido, acolhido e lembrado</dd></div>
     </dl>
-    <p class="footer-note reveal">Fotografias: Pexels (uso livre). Dados: Ministério do Desenvolvimento e Assistência Social / CadÚnico (jun. 2026) e FAO (2022 a 2024).</p>
+    <p class="footer-note reveal">Fotografias: Pexels (uso livre). Dados: Ministério do Desenvolvimento e Assistência Social / CadÚnico (jun. 2026) e FAO (2022 a 2024). Legislação: Lei 6.938/1981, Resolução CONAMA 237/1997, LC 182/2021 e Lei 13.019/2014 (Planalto). ODS: Agenda 2030, ONU (brasil.un.org/pt-br/sdgs).</p>
   </section>
 
 </main>
