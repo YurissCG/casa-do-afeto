@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Casa do Afeto | Apresentação institucional</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,11 +35,12 @@
     --ods6:#26BDE2;
     --ods10:#DD1367;
     --guide-w:220px;
+    --pad-x:8vw;
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
 
-  html{scroll-behavior:smooth; scroll-snap-type:y proximity; font-size:120%;}
+  html{scroll-behavior:smooth; font-size:120%; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
 
   body{
     background:var(--bg);
@@ -66,7 +67,7 @@
   img{max-width:100%; display:block;}
 
   h1, h2, h3{font-family:var(--font-display); font-weight:400; color:var(--ink); letter-spacing:.2px; text-wrap:balance;}
-  h2{line-height:1.1;}
+  h2{line-height:1.1; overflow-wrap:break-word;}
 
   .kicker{
     font-family:var(--font-body);
@@ -80,8 +81,9 @@
 
   .screen{
     min-height:100vh;
+    min-height:100svh;
     width:100%;
-    padding:6rem 8vw;
+    padding:6rem var(--pad-x);
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -122,7 +124,7 @@
     top:50%;
     transform:translateY(-50%);
     width:var(--guide-w);
-    max-height:calc(100vh - 2rem);
+    max-height:calc(100svh - 2rem);
     overflow-y:auto;
     z-index:50;
     background:rgba(251,246,234,.95);
@@ -168,22 +170,26 @@
   .guide-toggle{display:none;}
 
   @media (min-width:1101px){
+    html{scroll-snap-type:y proximity;}
     .screen:not(.capa){padding-right:calc(var(--guide-w) + 4rem);}
   }
 
   @media (max-width:1100px){
-    .guide{display:none; top:auto; bottom:4.6rem; left:1rem; right:1rem; width:auto; transform:none; max-height:65vh;}
+    .guide{display:none; top:auto; bottom:calc(5rem + env(safe-area-inset-bottom)); left:1rem; right:1rem; width:auto; transform:none; max-height:min(65vh, calc(100svh - 7rem));}
     .guide.open{display:block;}
+    .guide .tab{min-height:44px; align-items:center; font-size:.9rem;}
+    .guide .tab .num{font-size:.72rem;}
     .guide-toggle{
       display:inline-flex;
       align-items:center;
       gap:.6rem;
       position:fixed;
-      bottom:1rem;
+      bottom:calc(1rem + env(safe-area-inset-bottom));
       left:50%;
       transform:translateX(-50%);
       z-index:60;
-      background:var(--clay);
+      min-height:48px;
+      background:linear-gradient(90deg, var(--clay-deep) var(--p, 0%), var(--clay) var(--p, 0%));
       color:var(--card);
       border:none;
       border-radius:999px;
@@ -243,7 +249,7 @@
 
   @media (max-width:900px){
     .capa img{object-position:18% center;}
-    .capa-hint{bottom:5.2rem;}
+    .capa-hint{bottom:calc(5.4rem + env(safe-area-inset-bottom));}
   }
 
   /* ---------- apresentação ---------- */
@@ -305,7 +311,7 @@
   }
 
   .stamp-label{
-    font-size:.7rem;
+    font-size:.74rem;
     letter-spacing:.1em;
     text-transform:uppercase;
     color:var(--ink-soft);
@@ -335,7 +341,7 @@
     padding:1.6rem 1.8rem 1.4rem;
     transform:rotate(1.5deg);
   }
-  .roteiro-title{font-size:.66rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--olive); margin-bottom:.9rem;}
+  .roteiro-title{font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--olive); margin-bottom:.9rem;}
   .roteiro ol{list-style:none; counter-reset:passo;}
   .roteiro li{
     counter-increment:passo;
@@ -374,7 +380,7 @@
   .roteiro li.destaque{color:var(--clay-deep); font-weight:700;}
   .roteiro li.destaque::before{background:var(--clay);}
 
-  @media (max-width:900px){
+  @media (max-width:700px){
     .apresentacao{grid-template-columns:1fr; gap:2.4rem;}
     .roteiro{justify-self:start; transform:none;}
   }
@@ -431,14 +437,14 @@
   }
 
   .image-col a{display:block; text-decoration:none;}
-  .image-col img.full{height:auto; aspect-ratio:auto; object-fit:contain;}
-  .image-col img.poster{width:auto; max-height:78vh; margin:0 auto;}
+  .image-col img.full{height:auto; aspect-ratio:3/2; object-fit:contain;}
+  .image-col img.poster{aspect-ratio:2/3; width:min(100%, 52vh); margin:0 auto;}
   .image-col figcaption{font-family:var(--font-hand); font-size:1.15rem; color:var(--ink-soft); text-align:center; margin-top:.7rem;}
 
-  @media (max-width:900px){
+  @media (max-width:700px){
     .split, .split.reverse, .split.plan.reverse{grid-template-columns:1fr;}
     .split.reverse .image-col{order:0;}
-    .image-col img.poster{max-height:none; width:100%;}
+    .image-col img.poster{width:min(100%, 420px);}
   }
 
   /* ---------- recipe fragment card ---------- */
@@ -471,7 +477,7 @@
   .ods-tag-icons{display:flex; gap:4px; flex-shrink:0;}
   .ods-tag-icons img{width:40px; height:40px; border-radius:3px;}
   .ods-tag-text{font-size:.84rem; color:var(--ink-soft); line-height:1.35;}
-  .ods-tag-text strong{display:block; font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--olive-deep); margin-bottom:.15rem;}
+  .ods-tag-text strong{display:block; text-wrap:balance; font-size:.74rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--olive-deep); margin-bottom:.15rem;}
   .split .ods-tag-text{max-width:none;}
 
   /* ---------- stats ---------- */
@@ -507,10 +513,10 @@
 
   .lead-out{font-family:var(--font-hand); font-size:1.7rem; color:var(--clay);}
 
-  @media (max-width:900px){ .stat-grid{grid-template-columns:1fr;} }
+  @media (max-width:700px){ .stat-grid{grid-template-columns:1fr;} }
 
   /* ---------- Agenda 2030 (destaque ODS) ---------- */
-  .agenda{background:var(--card); padding-top:4.5rem; padding-bottom:4.5rem;}
+  .agenda{background:var(--card); padding-top:4.5rem; padding-bottom:4.5rem; overflow-x:clip;}
   .agenda::before{
     content:'';
     position:absolute;
@@ -567,9 +573,12 @@
       overflow-x:auto;
       scroll-snap-type:x mandatory;
       gap:1rem;
-      margin-right:-8vw;
-      padding:0 8vw 1rem 0;
+      margin-right:calc(-1 * var(--pad-x));
+      padding:0 var(--pad-x) 1rem 0;
+      scrollbar-width:none;
+      overscroll-behavior-x:contain;
     }
+    .ods-cards::-webkit-scrollbar{display:none;}
     .ods-card{flex:0 0 72%; scroll-snap-align:start;}
     .swipe-hint{display:block; font-size:.74rem; color:var(--ink-soft); margin:-1rem 0 1rem; letter-spacing:.04em;}
   }
@@ -698,7 +707,7 @@
   .pillar h3{font-size:1.15rem; color:var(--clay-deep); margin-bottom:.6rem; font-family:var(--font-body); font-weight:700; letter-spacing:.02em;}
   .pillar p{color:var(--ink-soft); font-size:.96rem;}
 
-  @media (max-width:900px){ .pillars{grid-template-columns:1fr;} }
+  @media (max-width:700px){ .pillars{grid-template-columns:1fr;} }
 
   /* ---------- terceiro setor / empreendedorismo social ---------- */
   .terceiro-setor h2{font-size:clamp(1.9rem,3.6vw,3rem); max-width:22ch; margin-bottom:2.2rem;}
@@ -709,7 +718,7 @@
   .info-card h3{font-size:1.15rem; color:var(--clay-deep); margin-bottom:.7rem; font-family:var(--font-body); font-weight:700; letter-spacing:.02em;}
   .info-card p{color:var(--ink-soft); font-size:1rem;}
 
-  @media (max-width:900px){ .info-duo{grid-template-columns:1fr;} }
+  @media (max-width:700px){ .info-duo{grid-template-columns:1fr;} }
 
   /* ---------- marco legal ---------- */
   .marco-legal h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:28ch; margin-bottom:1rem;}
@@ -769,7 +778,7 @@
 
   .step span{font-size:.92rem; font-weight:600; color:var(--ink-soft);}
 
-  @media (max-width:900px){
+  @media (max-width:700px){
     .process-strip{flex-direction:column; gap:1.4rem;}
     .step::after{display:none;}
     .step{padding-top:0; padding-left:2rem; text-align:left;}
@@ -875,6 +884,110 @@
     color:var(--ink-soft);
     opacity:.7;
     max-width:60ch;
+  }
+  /* ---------- "a seguir": continuidade da apresentação no celular/tablet ---------- */
+  .next-slide{display:none;}
+
+  @media (max-width:1100px){
+    .next-slide{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      align-self:flex-start;
+      justify-self:start;
+      grid-column:1 / -1;
+      margin-top:2.2rem;
+      min-height:44px;
+      padding:.55rem 1.1rem;
+      background:rgba(251,246,234,.55);
+      border:1px solid var(--wood-line);
+      border-radius:999px;
+      font-family:var(--font-body);
+      font-size:.82rem;
+      font-weight:600;
+      color:var(--ink);
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .next-kicker{font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--clay);}
+    .dark .next-slide, .olive .next-slide{background:transparent; color:var(--cream-on-dark); border-color:rgba(239,228,206,.4);}
+    .dark .next-kicker, .olive .next-kicker{color:var(--gold-on-dark);}
+  }
+
+  /* ---------- tablet e celular ---------- */
+  @media (max-width:900px){
+    :root{--pad-x:6vw;}
+    html{font-size:112.5%;}
+    .screen{
+      padding-top:4.4rem;
+      padding-bottom:6rem;
+      padding-left:max(var(--pad-x), env(safe-area-inset-left));
+      padding-right:max(var(--pad-x), env(safe-area-inset-right));
+    }
+    .capa{padding:0;}
+    main .screen h2{font-size:clamp(1.6rem, 6.8vw, 2.3rem); -webkit-hyphens:auto; hyphens:auto;}
+  }
+
+  /* ---------- celular: slides mais enxutos ---------- */
+  @media (max-width:700px){
+    .kicker{margin-bottom:.6rem;}
+    main .screen h2{margin-bottom:1rem;}
+    .split{gap:1.8rem;}
+    .image-col img:not(.full){aspect-ratio:16/10;}
+
+    .stamp{margin-top:1.4rem; padding:.6rem 1rem;}
+    .stamp-value{font-size:1rem; white-space:nowrap;}
+    .credits{margin-top:1.2rem;}
+    .roteiro{width:100%; padding:1.2rem 1.3rem 1rem;}
+    .roteiro li{font-size:1.2rem; padding-bottom:.5rem;}
+
+    .stat-grid{gap:1rem; margin-bottom:1.6rem;}
+    .stat-card{padding:1.2rem 1.3rem;}
+
+    .agenda-sub{font-size:1.35rem;}
+    .agenda-text{margin-bottom:1.4rem;}
+
+    .pillars{gap:.8rem;}
+    .pillar{display:grid; grid-template-columns:38px 1fr; column-gap:1rem; align-items:start; padding:1.2rem;}
+    .pillar svg{grid-row:span 2; width:34px; height:34px; margin:0;}
+    .pillar h3{margin-bottom:.3rem;}
+
+    .acoes{gap:1.2rem 1.1rem;}
+    .acao{padding-top:1rem;}
+    .acao svg{width:32px; height:32px; margin-bottom:.6rem;}
+
+    .info-duo{gap:1rem;}
+    .info-card{padding:1.3rem 1.2rem;}
+    .info-card p{font-size:.95rem;}
+
+    .law-list{gap:.7rem;}
+    .law-card{padding:1rem 1.1rem;}
+    .law-card strong{font-size:.92rem;}
+    .law-card p{font-size:.9rem;}
+
+    .processo > p{margin-bottom:1.6rem;}
+    .process-strip{margin-bottom:1.6rem;}
+
+    .ods-tag{margin-top:1.2rem;}
+    .ods-tag-icons img{width:36px; height:36px;}
+
+    .recipe-card{padding:1.6rem 1.2rem 1rem;}
+    .recipe-card::before{left:1.2rem;}
+    .card-field{gap:.15rem; padding:.65rem 0;}
+    .card-field dt{font-size:1.1rem;}
+    .card-field dd{font-size:.92rem;}
+
+    .ods-link{align-self:stretch; justify-content:center; text-align:center;}
+  }
+
+  /* ---------- celular deitado (paisagem) ---------- */
+  @media (max-width:1100px) and (max-height:520px) and (orientation:landscape){
+    html{font-size:110%;}
+    .screen{padding-top:2.6rem; padding-bottom:4.6rem;}
+    .capa{padding:0;}
+    .capa-hint{bottom:calc(4.4rem + env(safe-area-inset-bottom));}
+    .apresentacao h1{font-size:clamp(2.6rem, 7vw, 3.8rem);}
+    .guide{max-height:calc(100svh - 6rem);}
   }
 </style>
 </head>
@@ -1085,7 +1198,7 @@
       <p class="reveal" style="margin-top:.9rem;">Não será um prato pronto. Será espaço para ouvir, e a memória vira receita.</p>
     </div>
     <figure class="image-col reveal">
-      <img src="https://images.pexels.com/photos/3559899/pexels-photo-3559899.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Tigela de sopa caseira sobre mesa de madeira rústica" loading="lazy">
+      <img src="https://images.pexels.com/photos/3559899/pexels-photo-3559899.jpeg?auto=compress&cs=tinysrgb&w=900" srcset="https://images.pexels.com/photos/3559899/pexels-photo-3559899.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/3559899/pexels-photo-3559899.jpeg?auto=compress&cs=tinysrgb&w=900 900w, https://images.pexels.com/photos/3559899/pexels-photo-3559899.jpeg?auto=compress&cs=tinysrgb&w=1300 1300w" sizes="(max-width:700px) 88vw, 42vw" alt="Tigela de sopa caseira sobre mesa de madeira rústica" loading="lazy">
     </figure>
   </section>
 
@@ -1113,7 +1226,7 @@
 
   <section id="produzir" class="screen split reverse">
     <figure class="image-col reveal">
-      <img src="https://images.pexels.com/photos/9775851/pexels-photo-9775851.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Vista de cima de mãos de diferentes tons de pele unidas, simbolizando comunidade" loading="lazy">
+      <img src="https://images.pexels.com/photos/9775851/pexels-photo-9775851.jpeg?auto=compress&cs=tinysrgb&w=900" srcset="https://images.pexels.com/photos/9775851/pexels-photo-9775851.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/9775851/pexels-photo-9775851.jpeg?auto=compress&cs=tinysrgb&w=900 900w, https://images.pexels.com/photos/9775851/pexels-photo-9775851.jpeg?auto=compress&cs=tinysrgb&w=1300 1300w" sizes="(max-width:700px) 88vw, 42vw" alt="Vista de cima de mãos de diferentes tons de pele unidas, simbolizando comunidade" loading="lazy">
     </figure>
     <div class="text-col">
       <p class="kicker reveal">o que produzir</p>
@@ -1169,7 +1282,7 @@
       <span class="ods-tag-text"><strong>Acolhimento · ODS 3 + ODS 10</strong>Dignidade, inclusão e fortalecimento de vínculos.</span>
     </div>
     <figure class="image-col reveal" style="max-width:420px;">
-      <img src="https://images.pexels.com/photos/5684382/pexels-photo-5684382.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Close-up de mãos de diferentes tons de pele unidas em sinal de comunidade" loading="lazy">
+      <img src="https://images.pexels.com/photos/5684382/pexels-photo-5684382.jpeg?auto=compress&cs=tinysrgb&w=900" srcset="https://images.pexels.com/photos/5684382/pexels-photo-5684382.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/5684382/pexels-photo-5684382.jpeg?auto=compress&cs=tinysrgb&w=900 900w, https://images.pexels.com/photos/5684382/pexels-photo-5684382.jpeg?auto=compress&cs=tinysrgb&w=1300 1300w" sizes="(max-width:700px) 88vw, 420px" alt="Close-up de mãos de diferentes tons de pele unidas em sinal de comunidade" loading="lazy">
     </figure>
   </section>
 
@@ -1207,7 +1320,7 @@
       </div>
     </div>
     <figure class="image-col reveal">
-      <img src="https://images.pexels.com/photos/4262005/pexels-photo-4262005.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Vista de cima de família diversa reunida à mesa compartilhando uma refeição" loading="lazy">
+      <img src="https://images.pexels.com/photos/4262005/pexels-photo-4262005.jpeg?auto=compress&cs=tinysrgb&w=900" srcset="https://images.pexels.com/photos/4262005/pexels-photo-4262005.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/4262005/pexels-photo-4262005.jpeg?auto=compress&cs=tinysrgb&w=900 900w, https://images.pexels.com/photos/4262005/pexels-photo-4262005.jpeg?auto=compress&cs=tinysrgb&w=1300 1300w" sizes="(max-width:700px) 88vw, 42vw" alt="Vista de cima de família diversa reunida à mesa compartilhando uma refeição" loading="lazy">
     </figure>
   </section>
 
@@ -1291,8 +1404,27 @@
 </main>
 
 <script>
+  const sections = [...document.querySelectorAll('main .screen')];
+  const tabs = [...document.querySelectorAll('.guide .tab')];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const goTo = (el) => el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+
+  // "a seguir": no fim de cada slide, anuncia o próximo (visível no celular e tablet)
+  sections.forEach((section, i) => {
+    if (section.id === 'capa') return;
+    const next = sections[i + 1];
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'next-slide reveal';
+    const kicker = document.createElement('span');
+    kicker.className = 'next-kicker';
+    kicker.textContent = next ? 'a seguir' : 'fim';
+    btn.append(kicker, document.createTextNode(next ? ` ${tabs[i + 1].querySelector('.label').textContent} ↓` : ' voltar ao início ↑'));
+    btn.addEventListener('click', () => goTo(next || sections[0]));
+    section.appendChild(btn);
+  });
+
   // revelar elementos ao rolar
-  const revealEls = document.querySelectorAll('.reveal');
   const revealIO = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -1301,18 +1433,15 @@
       }
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-  revealEls.forEach((el) => revealIO.observe(el));
+  document.querySelectorAll('.reveal').forEach((el) => revealIO.observe(el));
 
   // guia da apresentação: slide ativo, contador e navegação
-  const sections = [...document.querySelectorAll('main .screen')];
-  const tabs = [...document.querySelectorAll('.guide .tab')];
   const guide = document.querySelector('.guide');
   const counter = guide.querySelector('.guide-count');
   const bar = guide.querySelector('.guide-bar span');
   const toggle = document.querySelector('.guide-toggle');
   const toggleLabel = toggle.querySelector('.guide-toggle-label');
   const total = String(sections.length).padStart(2, '0');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function setActive(index) {
     tabs.forEach((t, i) => {
@@ -1321,8 +1450,10 @@
       else t.removeAttribute('aria-current');
     });
     const n = String(index + 1).padStart(2, '0');
+    const pct = `${((index + 1) / sections.length) * 100}%`;
     counter.textContent = `${n} / ${total}`;
-    bar.style.width = `${((index + 1) / sections.length) * 100}%`;
+    bar.style.width = pct;
+    toggle.style.setProperty('--p', pct);
     toggleLabel.textContent = `${n}/${total} · ${tabs[index].querySelector('.label').textContent}`;
   }
 
@@ -1342,7 +1473,7 @@
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       const target = document.getElementById(tab.dataset.target);
-      if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      if (target) goTo(target);
       closeGuide();
     });
   });
@@ -1350,6 +1481,11 @@
   toggle.addEventListener('click', () => {
     const open = guide.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(open));
+    if (open) guide.querySelector('.tab.active')?.scrollIntoView({ block: 'nearest' });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (guide.classList.contains('open') && !guide.contains(e.target) && !toggle.contains(e.target)) closeGuide();
   });
 
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeGuide(); });
