@@ -107,6 +107,13 @@
   .ods-cards .ods-card:nth-child(4), .acoes .acao:nth-child(4), .ods-flow .flow-item:nth-child(4){transition-delay:.3s;}
   .ods-cards .ods-card:nth-child(5), .acoes .acao:nth-child(5), .ods-flow .flow-item:nth-child(5){transition-delay:.4s;}
   .stat-grid .stat-card:nth-child(2){transition-delay:.15s;}
+  .stat-grid .stat-card:nth-child(3){transition-delay:.3s;}
+  .num-grid .num-tile:nth-child(2), .disc-grid .disc:nth-child(2), .law-grid .law-card:nth-child(2), .funnel li:nth-child(2){transition-delay:.08s;}
+  .num-grid .num-tile:nth-child(3), .disc-grid .disc:nth-child(3), .law-grid .law-card:nth-child(3), .funnel li:nth-child(3){transition-delay:.16s;}
+  .num-grid .num-tile:nth-child(4), .disc-grid .disc:nth-child(4), .law-grid .law-card:nth-child(4), .funnel li:nth-child(4){transition-delay:.24s;}
+  .num-grid .num-tile:nth-child(5), .disc-grid .disc:nth-child(5), .law-grid .law-card:nth-child(5){transition-delay:.32s;}
+  .num-grid .num-tile:nth-child(6), .disc-grid .disc:nth-child(6){transition-delay:.4s;}
+  .disc-grid .disc:nth-child(7){transition-delay:.48s;}
   .process-strip .step:nth-child(2){transition-delay:.1s;}
   .process-strip .step:nth-child(3){transition-delay:.2s;}
   .process-strip .step:nth-child(4){transition-delay:.3s;}
@@ -507,6 +514,10 @@
 
   .stat-card p{color:var(--ink-soft); font-size:.95rem;}
   .stat-source{display:block; margin-top:.6rem; font-size:.78rem; color:var(--ink-soft); opacity:.75;}
+  .stat-grid.three{grid-template-columns:repeat(3, 1fr); gap:1.4rem;}
+  .stat-grid.three .stat-number{font-size:clamp(2.3rem,4.2vw,3.2rem);}
+  .context-line{font-size:.92rem; color:var(--ink-soft); max-width:70ch; margin-bottom:1.4rem; padding-left:1rem; border-left:3px solid var(--wood-line);}
+  @media (max-width:1000px){ .stat-grid.three{grid-template-columns:1fr;} }
 
   .need{font-size:1.15rem; color:var(--ink); max-width:52ch; margin-bottom:.8rem;}
   .need strong{color:var(--clay-deep);}
@@ -720,15 +731,241 @@
 
   @media (max-width:700px){ .info-duo{grid-template-columns:1fr;} }
 
-  /* ---------- marco legal ---------- */
-  .marco-legal h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:28ch; margin-bottom:1rem;}
-  .marco-legal .intro{color:var(--ink-soft); font-size:1.05rem; max-width:60ch; margin-bottom:1.8rem;}
+  /* ---------- legislação ---------- */
+  .legislacao h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:28ch; margin-bottom:1rem;}
+  .legislacao .intro{color:var(--ink-soft); font-size:1.05rem; max-width:62ch; margin-bottom:1.8rem;}
 
-  .law-list{display:flex; flex-direction:column; gap:1rem; margin-bottom:1.8rem;}
+  .law-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.8rem;}
+  .law-grid .law-card:last-child:nth-child(odd){grid-column:1 / -1;}
 
-  .law-card{background:var(--card); border-left:4px solid var(--clay); padding:1.2rem 1.6rem;}
+  .law-card{background:var(--card); border-left:4px solid var(--clay); padding:1.1rem 1.4rem;}
+  .law-area{display:block; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--olive); margin-bottom:.3rem;}
   .law-card strong{display:block; color:var(--clay-deep); font-size:1rem; margin-bottom:.35rem; font-family:var(--font-body); font-weight:700;}
-  .law-card p{color:var(--ink-soft); font-size:.96rem;}
+  .law-card p{color:var(--ink-soft); font-size:.92rem;}
+
+  @media (max-width:900px){ .law-grid{grid-template-columns:1fr;} }
+
+  /* ---------- gráficos: paleta validada para daltonismo (sempre com rótulo ou tabela ao lado) ---------- */
+  :root{
+    --c1:#A6472B;
+    --c2:#C48322;
+    --c3:#4F7A2A;
+    --c4:#3B5FB8;
+  }
+
+  .mini-title{font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--olive); margin-bottom:.7rem;}
+
+  [data-tip]{position:relative;}
+  [data-tip]:hover::after, [data-tip]:focus-visible::after{
+    content:attr(data-tip);
+    position:absolute;
+    bottom:calc(100% + 8px);
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--ink);
+    color:var(--card);
+    font-family:var(--font-body);
+    font-size:.72rem;
+    font-weight:600;
+    line-height:1.3;
+    padding:.35rem .6rem;
+    border-radius:6px;
+    white-space:nowrap;
+    z-index:5;
+    pointer-events:none;
+  }
+  [data-tip]:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+
+  .segbar{display:flex; gap:2px; height:46px; margin-bottom:.9rem;}
+  .seg{
+    flex:var(--v) 1 0;
+    min-width:6px;
+    background:var(--c);
+    color:var(--t, #fff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.8rem;
+    font-weight:700;
+    border-radius:2px;
+    cursor:default;
+  }
+  .seg:first-child{border-radius:4px 2px 2px 4px;}
+  .seg:last-child{border-radius:2px 4px 4px 2px;}
+
+  .seg-legend{list-style:none; display:grid; gap:.45rem;}
+  .seg-legend li{display:grid; grid-template-columns:12px 1fr auto; gap:.6rem; align-items:center; font-size:.88rem; color:var(--ink-soft);}
+  .seg-legend i{width:12px; height:12px; border-radius:3px; background:var(--c);}
+  .seg-legend strong{color:var(--ink); font-variant-numeric:tabular-nums; font-weight:700;}
+
+  /* ---------- a casa em números ---------- */
+  .numeros h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:24ch; margin-bottom:2.2rem;}
+  .num-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem; margin-bottom:1.6rem;}
+  .num-tile{background:var(--card); border-radius:6px; padding:1.4rem 1.5rem; border-top:3px solid var(--olive);}
+  .num-tile.accent{border-top-color:var(--clay);}
+  .num-big{display:block; font-family:var(--font-display); font-size:clamp(2.2rem,4vw,3.1rem); line-height:1; color:var(--olive-deep); margin-bottom:.55rem;}
+  .num-tile.accent .num-big{color:var(--clay-deep);}
+  .num-tile p{font-size:.92rem; color:var(--ink-soft);}
+  .num-note{font-size:.85rem; color:var(--ink-soft); max-width:66ch;}
+
+  @media (max-width:900px){ .num-grid{grid-template-columns:1fr 1fr; gap:.8rem;} }
+
+  /* ---------- interdisciplinaridade ---------- */
+  .disciplinas h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:24ch; margin-bottom:.9rem;}
+  .disciplinas .intro{color:var(--ink-soft); font-size:1.02rem; max-width:62ch; margin-bottom:1.8rem;}
+  .disc-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem;}
+  .disc{background:var(--card); border-radius:6px; padding:1.2rem 1.2rem 1.3rem; border-top:3px solid var(--clay);}
+  .disc.gestao{border-top-color:var(--olive);}
+  .disc svg{width:30px; height:30px; stroke:var(--clay-deep); margin-bottom:.7rem;}
+  .disc.gestao svg{stroke:var(--olive-deep);}
+  .disc h3{font-family:var(--font-body); font-weight:700; font-size:.95rem; color:var(--ink); margin-bottom:.35rem;}
+  .disc p{font-size:.84rem; color:var(--ink-soft); line-height:1.45;}
+
+  @media (max-width:1350px){ .disc-grid{grid-template-columns:repeat(3, 1fr);} }
+  @media (max-width:900px){ .disc-grid{grid-template-columns:1fr 1fr; gap:.8rem;} }
+
+  /* ---------- administração: DRE ---------- */
+  .dre-section h2, .payback-section h2, .orcamento h2, .captacao h2, .marketing h2{font-size:clamp(1.8rem,3.2vw,2.7rem); max-width:26ch; margin-bottom:2rem; line-height:1.08;}
+
+  .dre-layout{display:grid; grid-template-columns:1fr 1fr; gap:2.4rem; align-items:start;}
+
+  .fin-table{width:100%; border-collapse:collapse; background:var(--card); font-size:.84rem; box-shadow:0 14px 30px rgba(43,32,19,.12);}
+  .fin-table caption{caption-side:top; text-align:left; font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--olive); padding-bottom:.6rem;}
+  .fin-table{line-height:1.3;}
+  .fin-table th, .fin-table td{padding:.32rem .9rem; border-bottom:1px solid rgba(183,154,102,.35); text-align:left;}
+  .fin-table thead th{background:var(--olive-deep); color:var(--cream-on-dark); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; font-weight:600;}
+  .fin-table td:last-child, .fin-table th:last-child{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .fin-table tr.total td{font-weight:700; color:var(--ink);}
+  .fin-table tr.zero td{color:rgba(91,74,52,.6);}
+  .fin-table tr.sub td:first-child{padding-left:1.6rem;}
+  .fin-table tr.result td{background:rgba(79,122,42,.12); color:var(--olive-deep); font-weight:700; font-size:.92rem; border-bottom:none;}
+  .table-source{font-size:.74rem; color:var(--ink-soft); margin-top:.5rem;}
+
+  .dre-side{display:flex; flex-direction:column; gap:1.6rem;}
+  .chart-card{background:var(--card); border-radius:6px; padding:1.2rem 1.3rem 1.3rem;}
+  .chart-card h3{font-family:var(--font-body); font-weight:700; font-size:1rem; color:var(--ink); margin-bottom:.9rem;}
+
+  .admin-role ul{list-style:none; display:grid; gap:.5rem;}
+  .admin-role li{font-size:.95rem; color:var(--ink-soft); padding-left:1.1rem; position:relative;}
+  .admin-role li::before{content:''; position:absolute; left:0; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--clay);}
+  .admin-role strong{color:var(--ink);}
+
+  .callout{border-left:3px solid var(--olive); padding:.2rem 0 .2rem 1rem; font-size:.9rem; color:var(--ink-soft); max-width:60ch;}
+  .callout strong{color:var(--olive-deep);}
+
+  @media (max-width:1000px){ .dre-layout{grid-template-columns:1fr; gap:1.8rem;} }
+
+  /* ---------- administração: payback ---------- */
+  .payback-layout{display:grid; grid-template-columns:1fr 1.1fr; gap:2.4rem; align-items:start;}
+
+  .formula{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem .9rem; margin-bottom:1.6rem;}
+  .f-item{background:var(--card); border-radius:6px; padding:.75rem 1rem; display:flex; flex-direction:column;}
+  .f-label{font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);}
+  .f-value{font-size:1.25rem; font-weight:700; color:var(--ink); white-space:nowrap;}
+  .f-op{font-size:1.5rem; font-weight:600; color:var(--wood-line);}
+  .f-item.result{background:var(--olive-deep);}
+  .f-item.result .f-label{color:var(--gold-on-dark);}
+  .f-item.result .f-value{color:var(--cream-on-dark);}
+
+  .pb-chart{background:var(--card); border-radius:6px; padding:1.3rem 1.3rem 1rem;}
+  .pb-plot{position:relative; height:230px; margin-top:2.2rem; border-bottom:1px solid var(--wood-line);}
+  .pb-bars{position:absolute; inset:0; display:flex; align-items:flex-end; gap:6px;}
+  .pb-bar{flex:1; height:var(--h); background:var(--wood); border-radius:4px 4px 0 0; cursor:default;}
+  .pb-bar.paid{background:var(--c3);}
+  .pb-line{position:absolute; left:0; right:0; bottom:var(--y); border-top:2px solid var(--ink); z-index:2; pointer-events:none;}
+  .pb-line span{position:absolute; left:0; bottom:4px; font-size:.72rem; font-weight:700; color:var(--ink); background:var(--card); padding:0 .3rem 0 0;}
+  .pb-flag{position:absolute; right:0; bottom:calc(100% + 6px); font-size:.74rem; font-weight:700; color:var(--olive-deep); white-space:nowrap;}
+  .pb-axis{display:flex; gap:6px; margin-top:.4rem;}
+  .pb-axis span{flex:1; text-align:center; font-size:.68rem; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+  .pb-caption{font-size:.76rem; color:var(--ink-soft); margin-top:.5rem;}
+  .pb-legend{display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin-top:.7rem; font-size:.78rem; color:var(--ink-soft);}
+  .pb-legend span{display:inline-flex; align-items:center; gap:.4rem;}
+  .pb-legend i{width:12px; height:12px; border-radius:3px; background:var(--wood);}
+  .pb-legend i.paid{background:var(--c3);}
+
+  @media (max-width:1000px){ .payback-layout{grid-template-columns:1fr; gap:1.6rem;} }
+  @media (max-width:600px){
+    .pb-plot{height:190px;}
+    .pb-bars, .pb-axis{gap:3px;}
+    .f-value{font-size:1.05rem;}
+  }
+
+  /* ---------- controladoria: orçamento ---------- */
+  .budget-total{max-width:900px; margin-bottom:1.8rem;}
+  .budget-cols{display:grid; grid-template-columns:1fr 1fr; gap:2rem;}
+  .budget-col h3{display:flex; align-items:center; gap:.55rem; font-family:var(--font-body); font-weight:700; font-size:.92rem; color:var(--ink); margin-bottom:.8rem;}
+  .budget-col h3 i{width:12px; height:12px; border-radius:3px; background:var(--c); flex-shrink:0;}
+  .budget-col h3 span{margin-left:auto; font-variant-numeric:tabular-nums;}
+  .bars-list{list-style:none; display:grid; gap:.5rem;}
+  .bars-list li{display:grid; grid-template-columns:1fr auto; column-gap:.8rem; row-gap:.2rem; font-size:.8rem; color:var(--ink-soft);}
+  .bl-val{font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600;}
+  .bl-bar{grid-column:1 / -1; height:6px; width:var(--w); min-width:4px; background:var(--c); border-radius:0 4px 4px 0;}
+
+  @media (max-width:1000px){ .budget-cols{grid-template-columns:1fr; gap:1.6rem;} }
+
+  /* ---------- controladoria: captação e controle ---------- */
+  .captacao-layout{display:grid; grid-template-columns:1.1fr .9fr; gap:2.4rem; align-items:start;}
+  .controle-list{list-style:none; display:grid; gap:.7rem;}
+  .controle-list li{background:var(--card); border-left:3px solid var(--olive); padding:.8rem 1rem; font-size:.88rem; color:var(--ink-soft);}
+  .controle-list strong{display:block; color:var(--ink); font-size:.92rem; margin-bottom:.15rem;}
+
+  @media (max-width:1000px){ .captacao-layout{grid-template-columns:1fr; gap:1.8rem;} }
+
+  /* ---------- marketing ---------- */
+  .mkt-layout{display:grid; grid-template-columns:1.15fr .85fr; gap:3rem; align-items:center;}
+  .funnel{list-style:none; counter-reset:etapa; display:grid; gap:.7rem; margin-bottom:1.6rem;}
+  .funnel li{counter-increment:etapa; display:grid; grid-template-columns:2.2rem 1fr; column-gap:.9rem; align-items:start; background:var(--card); border-radius:6px; padding:.85rem 1rem;}
+  .funnel li::before{content:counter(etapa); grid-row:span 2; width:2.2rem; height:2.2rem; border-radius:50%; background:var(--clay); color:var(--card); font-weight:700; font-size:.85rem; display:flex; align-items:center; justify-content:center;}
+  .funnel li:nth-child(1){margin-right:0;}
+  .funnel li:nth-child(2){margin-right:4%;}
+  .funnel li:nth-child(3){margin-right:8%;}
+  .funnel li:nth-child(4){margin-right:12%;}
+  .funnel strong{font-size:.95rem; color:var(--ink);}
+  .funnel span{font-size:.85rem; color:var(--ink-soft);}
+
+  .phone{
+    width:min(100%, 300px);
+    margin:0 auto;
+    background:var(--ink);
+    border-radius:34px;
+    padding:12px;
+    box-shadow:0 26px 50px rgba(43,32,19,.3);
+    transform:rotate(2deg);
+  }
+  .phone-screen{background:#fff; border-radius:24px; overflow:hidden; padding:1rem .8rem .9rem;}
+  .profile{display:grid; grid-template-columns:52px 1fr; gap:.7rem; align-items:center; margin-bottom:.6rem;}
+  .avatar{width:52px; height:52px; border-radius:50%; background:var(--clay-deep); color:var(--card); font-family:var(--font-display); font-size:1.15rem; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--saffron);}
+  .profile strong{display:block; font-size:.86rem; color:var(--ink);}
+  .profile span{font-size:.68rem; color:var(--ink-soft);}
+  .bio{font-size:.7rem; color:var(--ink-soft); line-height:1.35; margin-bottom:.6rem;}
+  .phone-btn{display:block; text-align:center; background:var(--clay); color:var(--card); font-size:.72rem; font-weight:700; border-radius:8px; padding:.45rem; margin-bottom:.7rem;}
+  .feed{display:grid; grid-template-columns:repeat(3, 1fr); gap:3px;}
+  .post{aspect-ratio:1; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; padding:.35rem; font-size:.55rem; line-height:1.15; font-weight:700; color:var(--card);}
+  .post img{width:100%; height:100%; object-fit:cover;}
+  .post.photo{padding:0;}
+  .post.t1{background:var(--olive-deep);}
+  .post.t2{background:var(--clay);}
+  .post.t3{background:var(--saffron); color:var(--ink);}
+  .post.t4{background:var(--dark-bg);}
+  .post em{font-style:normal; font-family:var(--font-display); font-weight:400; font-size:.72rem; display:block; margin-bottom:.1rem;}
+  .phone-caption{font-family:var(--font-hand); font-size:1.15rem; color:var(--ink-soft); text-align:center; margin-top:1rem;}
+
+  @media (max-width:1000px){
+    .mkt-layout{grid-template-columns:1fr; gap:2rem;}
+    .phone{transform:none;}
+    .funnel li:nth-child(n){margin-right:0;}
+  }
+
+  /* ---------- encerramento ---------- */
+  .dark.encerramento h2{font-size:clamp(2.2rem,5vw,4rem); max-width:18ch; margin-bottom:1rem;}
+  .dark.encerramento .closing-line{margin-bottom:2.8rem;}
+  .signatures{display:grid; grid-template-columns:repeat(2, minmax(0, 340px)); gap:1.8rem 3rem; margin-bottom:2.4rem;}
+  .signature .hand{display:block; font-family:var(--font-hand); font-size:2rem; color:var(--gold-on-dark); line-height:1.1; padding-left:.4rem; transform:rotate(-2deg);}
+  .signature small{display:block; border-top:1px solid rgba(239,228,206,.45); padding-top:.45rem; margin-top:.2rem; font-size:.8rem; color:rgba(239,228,206,.85); letter-spacing:.02em;}
+  .institution{font-size:.85rem; color:rgba(239,228,206,.75); max-width:60ch; line-height:1.6;}
+  .institution strong{color:var(--cream-on-dark); font-weight:600;}
+
+  @media (max-width:700px){ .signatures{grid-template-columns:1fr; gap:2.6rem;} }
 
   /* ---------- process strip ---------- */
   .processo h2{font-size:clamp(1.9rem,3.4vw,2.9rem); max-width:26ch; margin-bottom:1.1rem;}
@@ -996,7 +1233,7 @@
 <nav class="guide" id="guia" aria-label="Guia da apresentação">
   <div class="guide-head">
     <p class="guide-title">guia da apresentação</p>
-    <p class="guide-count" aria-live="polite">01 / 18</p>
+    <p class="guide-count" aria-live="polite">01 / 26</p>
     <div class="guide-bar" aria-hidden="true"><span></span></div>
   </div>
   <ol>
@@ -1014,16 +1251,24 @@
     <li><button class="tab" data-target="espaco"><span class="num">12</span><span class="label">o espaço</span></button></li>
     <li><button class="tab" data-target="publico"><span class="num">13</span><span class="label">para quem</span></button></li>
     <li><button class="tab" data-target="terceiro-setor"><span class="num">14</span><span class="label">terceiro setor</span></button></li>
-    <li><button class="tab" data-target="marco-legal"><span class="num">15</span><span class="label">a lei</span></button></li>
-    <li><button class="tab" data-target="diferencial"><span class="num">16</span><span class="label">diferencial</span></button></li>
-    <li><button class="tab" data-target="ods-final"><span class="num">17</span><span class="label">cinco ODS</span></button></li>
-    <li><button class="tab" data-target="ficha"><span class="num">18</span><span class="label">ficha</span></button></li>
+    <li><button class="tab" data-target="numeros"><span class="num">15</span><span class="label">em números</span></button></li>
+    <li><button class="tab" data-target="disciplinas"><span class="num">16</span><span class="label">disciplinas</span></button></li>
+    <li><button class="tab" data-target="dre"><span class="num">17</span><span class="label">DRE</span></button></li>
+    <li><button class="tab" data-target="payback"><span class="num">18</span><span class="label">payback</span></button></li>
+    <li><button class="tab" data-target="orcamento"><span class="num">19</span><span class="label">orçamento</span></button></li>
+    <li><button class="tab" data-target="captacao"><span class="num">20</span><span class="label">captação</span></button></li>
+    <li><button class="tab" data-target="legislacao"><span class="num">21</span><span class="label">legislação</span></button></li>
+    <li><button class="tab" data-target="marketing"><span class="num">22</span><span class="label">marketing</span></button></li>
+    <li><button class="tab" data-target="diferencial"><span class="num">23</span><span class="label">diferencial</span></button></li>
+    <li><button class="tab" data-target="ods-final"><span class="num">24</span><span class="label">cinco ODS</span></button></li>
+    <li><button class="tab" data-target="ficha"><span class="num">25</span><span class="label">ficha</span></button></li>
+    <li><button class="tab" data-target="obrigado"><span class="num">26</span><span class="label">obrigado</span></button></li>
   </ol>
 </nav>
 
 <button class="guide-toggle" type="button" aria-controls="guia" aria-expanded="false">
   <svg viewBox="0 0 16 16" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 4 H14"/><path d="M2 8 H14"/><path d="M2 12 H14"/></svg>
-  <span class="guide-toggle-label">01/18 · capa</span>
+  <span class="guide-toggle-label">01/26 · capa</span>
 </button>
 
 <main>
@@ -1059,10 +1304,11 @@
       <p class="roteiro-title">o caminho desta apresentação</p>
       <ol>
         <li>o problema social</li>
-        <li>a necessidade de acolhimento</li>
         <li class="destaque">a Agenda 2030</li>
         <li>a Casa do Afeto</li>
         <li>a gastronomia como ferramenta</li>
+        <li class="destaque">gestão: DRE, payback e orçamento</li>
+        <li>legislação e marketing</li>
         <li>o impacto social</li>
       </ol>
     </aside>
@@ -1070,19 +1316,25 @@
 
   <section id="dados" class="screen stats alt">
     <p class="kicker reveal">por que existimos</p>
-    <h2 class="reveal">O Brasil saiu do Mapa da Fome, mas a rua continua crescendo</h2>
-    <div class="stat-grid">
+    <h2 class="reveal">Em Belo Horizonte, a rua cresceu 36% em cinco anos</h2>
+    <div class="stat-grid three">
       <div class="stat-card reveal">
-        <span class="stat-number">392,4 mil</span>
-        <p>pessoas em situação de rua no CadÚnico, alta de 97,4% desde 2022.</p>
-        <span class="stat-source">Fonte: MDS, jun. 2026.</span>
+        <span class="stat-number">16.115</span>
+        <p>pessoas sem moradia em Belo Horizonte, segundo o CadÚnico.</p>
+        <span class="stat-source">Fonte: CadÚnico, 2026.</span>
       </div>
       <div class="stat-card reveal">
-        <span class="stat-number">13,5%</span>
-        <p>do Brasil ainda em insegurança alimentar moderada ou grave.</p>
-        <span class="stat-source">Fonte: FAO, 2022 a 2024.</span>
+        <span class="stat-number">+36%</span>
+        <p>em cinco anos: eram 11.858 pessoas.</p>
+        <span class="stat-source">Fonte: CadÚnico, 2026.</span>
+      </div>
+      <div class="stat-card reveal">
+        <span class="stat-number">1,2 mil</span>
+        <p>vagas no acolhimento temporário da cidade: mais de 13 pessoas para cada vaga.</p>
+        <span class="stat-source">Fonte: rede de acolhimento de BH, 2026.</span>
       </div>
     </div>
+    <p class="context-line reveal">No Brasil, são 392,4 mil pessoas em situação de rua no CadÚnico (MDS, jun. 2026), e 13,5% da população ainda vive insegurança alimentar moderada ou grave (FAO, 2022 a 2024).</p>
     <p class="need reveal">E não falta só comida. Falta <strong>acolhimento</strong>: ser ouvido, lembrado e tratado com dignidade.</p>
     <p class="lead-out reveal">É para esse cenário que a Casa do Afeto vai nascer.</p>
   </section>
@@ -1339,25 +1591,297 @@
     </div>
   </section>
 
-  <section id="marco-legal" class="screen marco-legal">
-    <p class="kicker reveal">o marco legal</p>
-    <h2 class="reveal">Por que negócio, sociedade e meio ambiente andam juntos por lei</h2>
-    <p class="intro reveal">Não existe uma única lei que "proíba abrir empresa sem causa social" — mas a legislação brasileira empurra, de vários lados, nessa direção:</p>
-    <div class="law-list">
-      <div class="law-card reveal">
-        <strong>Lei nº 6.938/1981 + Resolução CONAMA nº 237/1997</strong>
-        <p>Política Nacional do Meio Ambiente. Exige licenciamento ambiental antes mesmo de abrir diversas atividades econômicas: o impacto ambiental virou pré-requisito, não opção.</p>
+  <section id="numeros" class="screen numeros">
+    <p class="kicker reveal">a casa em números</p>
+    <h2 class="reveal">O tamanho do que planejamos para 2027</h2>
+    <div class="num-grid">
+      <div class="num-tile reveal"><span class="num-big">3 dias</span><p>de atendimento por semana: segunda, quarta e sexta</p></div>
+      <div class="num-tile reveal"><span class="num-big">40</span><p>pessoas atendidas na simulação</p></div>
+      <div class="num-tile reveal"><span class="num-big">240</span><p>refeições distribuídas em 12 encontros</p></div>
+      <div class="num-tile reveal"><span class="num-big">138 m²</span><p>de casa, com cozinha própria e salas de convivência</p></div>
+      <div class="num-tile reveal accent"><span class="num-big">R$ 90 mil</span><p>de orçamento anual para 2027</p></div>
+      <div class="num-tile reveal accent"><span class="num-big">R$ 7.500</span><p>por mês para manter tudo funcionando</p></div>
+    </div>
+    <p class="num-note reveal">Dados de simulação: servem de parâmetro para organizar a execução, o acompanhamento e a avaliação das ações.</p>
+  </section>
+
+  <section id="disciplinas" class="screen disciplinas alt">
+    <p class="kicker reveal">interdisciplinaridade</p>
+    <h2 class="reveal">Sete disciplinas, uma mesma casa</h2>
+    <p class="intro reveal">Cada disciplina do curso resolve uma parte do projeto. Juntas, tiram a Casa do Afeto do papel com gestão, segurança e afeto.</p>
+    <div class="disc-grid">
+      <article class="disc gestao reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 40 V8"/><path d="M8 40 H40"/><path d="M14 32 L22 24 L28 29 L38 17"/><path d="M32 17 H38 V23"/></svg>
+        <h3>Administração</h3>
+        <p>Planeja, mede e decide: DRE, payback simples e uso eficiente de cada real.</p>
+      </article>
+      <article class="disc gestao reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="8" width="24" height="32" rx="3"/><path d="M18 16 H30"/><path d="M18 24 H22"/><path d="M26 24 H30"/><path d="M18 31 H22"/><path d="M26 31 H30"/></svg>
+        <h3>Controladoria</h3>
+        <p>Orçamento anual, custos diretos e indiretos, fichas técnicas e prestação de contas.</p>
+      </article>
+      <article class="disc gestao reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8 V40"/><path d="M14 40 H34"/><path d="M10 14 H38"/><path d="M10 14 L5 26 H15 Z"/><path d="M38 14 L33 26 H43 Z"/></svg>
+        <h3>Legislação</h3>
+        <p>Regularização da ONG, RDC 216, Boas Práticas, POPs e regras para equipe e voluntariado.</p>
+      </article>
+      <article class="disc gestao reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 20 V28 H14 L30 36 V12 L14 20 Z"/><path d="M14 28 L17 38 H22 L20 29"/><path d="M36 18 C39 21, 39 27, 36 30"/></svg>
+        <h3>Marketing</h3>
+        <p>Redes sociais, campanhas contra o desperdício e mobilização de doadores e voluntários.</p>
+      </article>
+      <article class="disc reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 V18 C18 22, 22 24, 24 24 C26 24, 30 22, 30 18 V6"/><path d="M24 6 V18"/><path d="M24 24 V42"/></svg>
+        <h3>Cozinha italiana</h3>
+        <p>Massas, molhos e caldos que rendem, nutrem e aproveitam bem os ingredientes doados.</p>
+      </article>
+      <article class="disc reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 26 C8 14, 40 14, 40 26 V38 H8 Z"/><path d="M17 22 L20 28"/><path d="M24 21 L27 27"/><path d="M31 22 L34 28"/></svg>
+        <h3>Confeitaria e panificação</h3>
+        <p>Pães e doces afetivos, como o bolo de fubá, e oficinas que ensinam um ofício.</p>
+      </article>
+      <article class="disc reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 6 H32 C32 18, 30 24, 24 24 C18 24, 16 18, 16 6 Z"/><path d="M24 24 V40"/><path d="M17 40 H31"/></svg>
+        <h3>Enologia</h3>
+        <p>Harmonização nos eventos beneficentes de captação. No atendimento, nada de álcool, em respeito ao ODS 3.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="dre" class="screen dre-section">
+    <p class="kicker reveal">administração · DRE</p>
+    <h2 class="reveal">De cada R$ 1 que entra, R$ 0,42 volta para a causa</h2>
+    <div class="dre-layout">
+      <div class="reveal">
+        <table class="fin-table">
+          <caption>Demonstração do Resultado do Exercício</caption>
+          <thead><tr><th>Descrição</th><th>Valor (R$)</th></tr></thead>
+          <tbody>
+            <tr class="total"><td>Receita bruta</td><td>156.000,00</td></tr>
+            <tr class="zero"><td>(-) Devoluções</td><td>0,00</td></tr>
+            <tr class="zero"><td>(-) Tributos</td><td>0,00</td></tr>
+            <tr class="total"><td>(=) Receita líquida</td><td>156.000,00</td></tr>
+            <tr><td>(-) CMV</td><td>48.000,00</td></tr>
+            <tr class="total"><td>(=) Lucro bruto</td><td>108.000,00</td></tr>
+            <tr><td>(-) Despesas operacionais</td><td></td></tr>
+            <tr class="sub"><td>Despesas administrativas</td><td>37.200,00</td></tr>
+            <tr class="sub"><td>Despesas comerciais</td><td>4.800,00</td></tr>
+            <tr class="sub zero"><td>Despesas financeiras</td><td>0,00</td></tr>
+            <tr class="total"><td>(=) Lucro operacional</td><td>66.000,00</td></tr>
+            <tr class="zero"><td>(+/-) Receitas e despesas não operacionais</td><td>0,00</td></tr>
+            <tr class="total"><td>(=) LAIR</td><td>66.000,00</td></tr>
+            <tr class="zero"><td>(-) Provisão contribuição social / IR</td><td>0,00</td></tr>
+            <tr class="result"><td>(=) Lucro líquido (superávit)</td><td>66.000,00</td></tr>
+          </tbody>
+        </table>
+        <p class="table-source">Fonte: autoral (2026).</p>
       </div>
-      <div class="law-card reveal">
-        <strong>Lei Complementar nº 182/2021 — Marco Legal das Startups</strong>
-        <p>Reconhece oficialmente o empreendedorismo como vetor de desenvolvimento econômico, social e ambiental, não só financeiro.</p>
-      </div>
-      <div class="law-card reveal">
-        <strong>Lei nº 13.019/2014 — Marco Regulatório das Organizações da Sociedade Civil</strong>
-        <p>Define como ONGs, como a Casa do Afeto, se organizam e se relacionam com o poder público.</p>
+      <div class="dre-side">
+        <div class="chart-card reveal">
+          <h3>Para onde vai cada R$ 1 de receita</h3>
+          <div class="segbar" role="img" aria-label="CMV 31%, despesas administrativas 24%, despesas comerciais 3%, superávit 42%">
+            <span class="seg" style="--v:48; --c:var(--c1);" data-tip="CMV: R$ 48.000 (31%)" tabindex="0">31%</span>
+            <span class="seg" style="--v:37.2; --c:var(--c2); --t:var(--ink);" data-tip="Administrativas: R$ 37.200 (24%)" tabindex="0">24%</span>
+            <span class="seg" style="--v:4.8; --c:var(--c4);" data-tip="Comerciais: R$ 4.800 (3%)" tabindex="0"></span>
+            <span class="seg" style="--v:66; --c:var(--c3);" data-tip="Superávit: R$ 66.000 (42%)" tabindex="0">42%</span>
+          </div>
+          <ul class="seg-legend">
+            <li><i style="--c:var(--c1);"></i>CMV · custo das refeições<strong>R$ 0,31</strong></li>
+            <li><i style="--c:var(--c2);"></i>Despesas administrativas<strong>R$ 0,24</strong></li>
+            <li><i style="--c:var(--c4);"></i>Despesas comerciais<strong>R$ 0,03</strong></li>
+            <li><i style="--c:var(--c3);"></i>Superávit reinvestido na causa<strong>R$ 0,42</strong></li>
+          </ul>
+        </div>
+        <div class="admin-role reveal">
+          <p class="mini-title">em que a administração contribui</p>
+          <ul>
+            <li><strong>Planejar</strong> receitas e despesas antes de abrir as portas.</li>
+            <li><strong>Medir</strong> o resultado com a DRE e o payback.</li>
+            <li><strong>Decidir</strong> onde reinvestir o superávit.</li>
+          </ul>
+        </div>
+        <p class="callout reveal">Em uma ONG, o lucro se chama <strong>superávit</strong>: não é dividido entre sócios, é reinvestido na própria causa. Os custos da DRE somam <strong>R$ 90 mil</strong>, o mesmo valor do orçamento de 2027.</p>
       </div>
     </div>
-    <p class="lead-out reveal">É nesse cenário que nascem projetos como o nosso: negócio, causa social e responsabilidade ambiental como uma coisa só.</p>
+  </section>
+
+  <section id="payback" class="screen payback-section alt">
+    <p class="kicker reveal">administração · payback simples</p>
+    <h2 class="reveal">O investimento para abrir a casa se paga em 10 meses</h2>
+    <div class="payback-layout">
+      <div>
+        <div class="formula reveal">
+          <div class="f-item"><span class="f-label">investimento inicial</span><span class="f-value">R$ 55.000</span></div>
+          <span class="f-op" aria-hidden="true">÷</span>
+          <div class="f-item"><span class="f-label">superávit anual</span><span class="f-value">R$ 66.000</span></div>
+          <span class="f-op" aria-hidden="true">=</span>
+          <div class="f-item result"><span class="f-label">payback simples</span><span class="f-value">0,83 ano ≈ 10 meses</span></div>
+        </div>
+        <div class="reveal">
+          <table class="fin-table">
+            <caption>Investimento de implantação (estimado)</caption>
+            <thead><tr><th>Item</th><th>Valor (R$)</th></tr></thead>
+            <tbody>
+              <tr><td>Equipamentos de cozinha industrial (fogão, forno, refrigeração e bancadas)</td><td>22.000,00</td></tr>
+              <tr><td>Adequação do imóvel e acessibilidade</td><td>11.000,00</td></tr>
+              <tr><td>Mobiliário do refeitório e das salas</td><td>10.000,00</td></tr>
+              <tr><td>Utensílios, louças e EPIs</td><td>5.000,00</td></tr>
+              <tr><td>Tecnologia e comunicação inicial</td><td>4.000,00</td></tr>
+              <tr><td>Regularização (estatuto, CNPJ, alvará e licença sanitária)</td><td>3.000,00</td></tr>
+              <tr class="result"><td>Total investido</td><td>55.000,00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pb-chart reveal">
+        <p class="mini-title">superávit acumulado, mês a mês</p>
+        <div class="pb-plot" role="img" aria-label="Superávit acumulado de R$ 5.500 por mês: alcança os R$ 55 mil investidos no mês 10 e R$ 66 mil no mês 12">
+          <div class="pb-bars">
+            <span class="pb-bar" style="--h:8.33%" data-tip="Mês 1 · R$ 5.500" tabindex="0"></span>
+            <span class="pb-bar" style="--h:16.67%" data-tip="Mês 2 · R$ 11.000" tabindex="0"></span>
+            <span class="pb-bar" style="--h:25%" data-tip="Mês 3 · R$ 16.500" tabindex="0"></span>
+            <span class="pb-bar" style="--h:33.33%" data-tip="Mês 4 · R$ 22.000" tabindex="0"></span>
+            <span class="pb-bar" style="--h:41.67%" data-tip="Mês 5 · R$ 27.500" tabindex="0"></span>
+            <span class="pb-bar" style="--h:50%" data-tip="Mês 6 · R$ 33.000" tabindex="0"></span>
+            <span class="pb-bar" style="--h:58.33%" data-tip="Mês 7 · R$ 38.500" tabindex="0"></span>
+            <span class="pb-bar" style="--h:66.67%" data-tip="Mês 8 · R$ 44.000" tabindex="0"></span>
+            <span class="pb-bar" style="--h:75%" data-tip="Mês 9 · R$ 49.500" tabindex="0"></span>
+            <span class="pb-bar paid" style="--h:83.33%" data-tip="Mês 10 · R$ 55.000: investimento pago" tabindex="0"></span>
+            <span class="pb-bar paid" style="--h:91.67%" data-tip="Mês 11 · R$ 60.500" tabindex="0"></span>
+            <span class="pb-bar paid" style="--h:100%" data-tip="Mês 12 · R$ 66.000" tabindex="0"><span class="pb-flag">R$ 66 mil</span></span>
+          </div>
+          <div class="pb-line" style="--y:83.33%"><span>investimento: R$ 55 mil</span></div>
+        </div>
+        <div class="pb-axis" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+        <p class="pb-caption">meses de operação · superávit de R$ 5.500 por mês (R$ 66.000 ÷ 12)</p>
+        <div class="pb-legend"><span><i></i>pagando o investimento</span><span><i class="paid"></i>investimento recuperado</span></div>
+      </div>
+    </div>
+    <p class="callout reveal" style="margin-top:1.8rem;">No terceiro setor, o payback mostra em quanto tempo o superávit repõe o que foi investido para abrir a casa. Depois disso, todo o excedente volta para a causa.</p>
+  </section>
+
+  <section id="orcamento" class="screen orcamento">
+    <p class="kicker reveal">controladoria · orçamento 2027</p>
+    <h2 class="reveal">R$ 90 mil por ano, 60% direto no acolhimento</h2>
+    <div class="budget-total reveal">
+      <div class="segbar" role="img" aria-label="Projeto de acolhimento e alimentação R$ 54 mil (60%), orçamento operacional R$ 36 mil (40%)">
+        <span class="seg" style="--v:54; --c:var(--c1);" data-tip="Projeto: R$ 54.000 (60%)" tabindex="0">60% · R$ 54 mil</span>
+        <span class="seg" style="--v:36; --c:var(--c4);" data-tip="Operacional: R$ 36.000 (40%)" tabindex="0">40% · R$ 36 mil</span>
+      </div>
+    </div>
+    <div class="budget-cols">
+      <div class="budget-col reveal" style="--c:var(--c1);">
+        <h3><i></i>Projeto de acolhimento e alimentação<span>R$ 54.000</span></h3>
+        <ul class="bars-list">
+          <li><span>Gêneros alimentícios e ingredientes</span><span class="bl-val">R$ 27.600</span><span class="bl-bar" style="--w:100%"></span></li>
+          <li><span>Reserva para variações de preço e emergências</span><span class="bl-val">R$ 6.000</span><span class="bl-bar" style="--w:21.74%"></span></li>
+          <li><span>Transporte e logística de insumos e doações</span><span class="bl-val">R$ 3.600</span><span class="bl-bar" style="--w:13.04%"></span></li>
+          <li><span>Apoio técnico ao acolhimento</span><span class="bl-val">R$ 3.600</span><span class="bl-bar" style="--w:13.04%"></span></li>
+          <li><span>Complementos alimentares e água potável</span><span class="bl-val">R$ 3.000</span><span class="bl-bar" style="--w:10.87%"></span></li>
+          <li><span>Higiene e segurança no preparo</span><span class="bl-val">R$ 3.000</span><span class="bl-bar" style="--w:10.87%"></span></li>
+          <li><span>Utensílios e reposição de equipamentos</span><span class="bl-val">R$ 3.000</span><span class="bl-bar" style="--w:10.87%"></span></li>
+          <li><span>Embalagens e descartáveis</span><span class="bl-val">R$ 2.400</span><span class="bl-bar" style="--w:8.7%"></span></li>
+          <li><span>Rodas de conversa e memória afetiva</span><span class="bl-val">R$ 1.800</span><span class="bl-bar" style="--w:6.52%"></span></li>
+        </ul>
+      </div>
+      <div class="budget-col reveal" style="--c:var(--c4);">
+        <h3><i></i>Orçamento operacional<span>R$ 36.000</span></h3>
+        <ul class="bars-list">
+          <li><span>Água, energia e gás da sede e cozinha</span><span class="bl-val">R$ 7.800</span><span class="bl-bar" style="--w:28.26%"></span></li>
+          <li><span>Contabilidade e apoio administrativo</span><span class="bl-val">R$ 7.200</span><span class="bl-bar" style="--w:26.09%"></span></li>
+          <li><span>Transporte e deslocamentos institucionais</span><span class="bl-val">R$ 4.800</span><span class="bl-bar" style="--w:17.39%"></span></li>
+          <li><span>Higiene, limpeza e materiais administrativos</span><span class="bl-val">R$ 4.200</span><span class="bl-bar" style="--w:15.22%"></span></li>
+          <li><span>Manutenção e pequenos reparos</span><span class="bl-val">R$ 3.600</span><span class="bl-bar" style="--w:13.04%"></span></li>
+          <li><span>Divulgação institucional e materiais gráficos</span><span class="bl-val">R$ 3.600</span><span class="bl-bar" style="--w:13.04%"></span></li>
+          <li><span>Comunicação, internet e telefone</span><span class="bl-val">R$ 3.000</span><span class="bl-bar" style="--w:10.87%"></span></li>
+          <li><span>Taxas, tarifas bancárias e diversas</span><span class="bl-val">R$ 1.800</span><span class="bl-bar" style="--w:6.52%"></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="callout reveal" style="margin-top:1.8rem;">Só os ingredientes somam <strong>R$ 27.600</strong>, quase um terço de todo o orçamento (31%). Média mensal necessária: <strong>R$ 7.500</strong>. Período: janeiro a dezembro de 2027.</p>
+  </section>
+
+  <section id="captacao" class="screen captacao alt">
+    <p class="kicker reveal">controladoria · captação e controle</p>
+    <h2 class="reveal">Quem financia os R$ 90 mil, e como cada real é controlado</h2>
+    <div class="captacao-layout">
+      <div class="chart-card reveal">
+        <h3>Meta de captação para 2027</h3>
+        <div class="segbar" role="img" aria-label="Pessoas físicas 20%, empresas 30%, editais 30%, doações de alimentos e serviços 20%">
+          <span class="seg" style="--v:18; --c:var(--c1);" data-tip="Pessoas físicas: R$ 18.000" tabindex="0">20%</span>
+          <span class="seg" style="--v:27; --c:var(--c2); --t:var(--ink);" data-tip="Empresas: R$ 27.000" tabindex="0">30%</span>
+          <span class="seg" style="--v:27; --c:var(--c3);" data-tip="Editais e fundos: R$ 27.000" tabindex="0">30%</span>
+          <span class="seg" style="--v:18; --c:var(--c4);" data-tip="Doações em espécie: R$ 18.000" tabindex="0">20%</span>
+        </div>
+        <ul class="seg-legend">
+          <li><i style="--c:var(--c1);"></i>Doações de pessoas físicas<strong>R$ 18.000</strong></li>
+          <li><i style="--c:var(--c2);"></i>Parcerias e doações de empresas<strong>R$ 27.000</strong></li>
+          <li><i style="--c:var(--c3);"></i>Editais e fundos de apoio a projetos sociais<strong>R$ 27.000</strong></li>
+          <li><i style="--c:var(--c4);"></i>Alimentos, materiais e serviços doados (economia de custos)<strong>R$ 18.000</strong></li>
+        </ul>
+        <p class="table-source" style="margin-top:.9rem;">Meta de captação = 100% do orçamento previsto. Fonte: autoral (2026).</p>
+      </div>
+      <div class="reveal">
+        <p class="mini-title">como a controladoria acompanha</p>
+        <ul class="controle-list">
+          <li><strong>Fichas técnicas</strong>Custo de cada preparação e porções padronizadas: comprar certo e desperdiçar menos.</li>
+          <li><strong>Custos diretos e indiretos</strong>Separados: o que vai para o prato e o que mantém a casa aberta.</li>
+          <li><strong>Prestação de contas mensal</strong>Pública nas redes, para doadores, parceiros e órgãos públicos.</li>
+          <li><strong>Indicadores</strong>Refeições servidas, pessoas atendidas, participação nas rodas e custo por refeição.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="legislacao" class="screen legislacao">
+    <p class="kicker reveal">legislação</p>
+    <h2 class="reveal">A Casa do Afeto dentro da lei</h2>
+    <p class="intro reveal">A conformidade jurídica protege quem é atendido, quem trabalha e quem doa.</p>
+    <div class="law-grid">
+      <div class="law-card reveal"><span class="law-area">regularização</span><strong>Código Civil (arts. 53 a 61) e Lei nº 13.019/2014 (MROSC)</strong><p>Associação sem fins lucrativos, com estatuto, CNPJ e regras claras para parcerias com o poder público.</p></div>
+      <div class="law-card reveal"><span class="law-area">cozinha segura</span><strong>RDC nº 216/2004 da Anvisa</strong><p>Boas práticas na manipulação de alimentos, com Manual de Boas Práticas, POPs, alvará e licença sanitária.</p></div>
+      <div class="law-card reveal"><span class="law-area">doação de alimentos</span><strong>Lei nº 14.016/2020</strong><p>Autoriza restaurantes, mercados e indústrias a doar excedentes ainda próprios para consumo: menos desperdício, mais comida no prato.</p></div>
+      <div class="law-card reveal"><span class="law-area">equipe</span><strong>CLT e Lei nº 9.608/1998 (serviço voluntário)</strong><p>Direitos trabalhistas para quem é contratado e termo de adesão para cada voluntário.</p></div>
+      <div class="law-card reveal"><span class="law-area">dados e imagem</span><strong>LGPD · Lei nº 13.709/2018</strong><p>Cadastro dos atendidos protegido e fotos divulgadas só com autorização, preservando a privacidade.</p></div>
+    </div>
+    <p class="lead-out reveal">Credibilidade é o maior ativo de uma ONG, e ela começa no cumprimento da lei.</p>
+  </section>
+
+  <section id="marketing" class="screen marketing alt">
+    <p class="kicker reveal">plano de marketing</p>
+    <h2 class="reveal">Marketing que transforma seguidor em apoiador</h2>
+    <div class="mkt-layout">
+      <div>
+        <ol class="funnel">
+          <li class="reveal"><strong>Conhecer</strong><span>Conteúdos sobre a causa, alimentação, inclusão social e vulnerabilidade.</span></li>
+          <li class="reveal"><strong>Acreditar</strong><span>Prestação de contas mensal e pública, com números e histórias reais.</span></li>
+          <li class="reveal"><strong>Participar</strong><span>Campanhas de conscientização, como o combate ao desperdício de alimentos.</span></li>
+          <li class="reveal"><strong>Contribuir</strong><span>Empresas parceiras, doadores e voluntários formando a rede de apoio.</span></li>
+        </ol>
+        <p class="callout reveal">Tom de voz: <strong>dignidade, nunca caridade punitiva</strong>. Rostos e histórias só aparecem com autorização.</p>
+      </div>
+      <figure class="reveal">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="profile">
+              <span class="avatar" aria-hidden="true">CA</span>
+              <div><strong>Casa do Afeto</strong><span>@casadoafeto.bh · ONG · BH</span></div>
+            </div>
+            <p class="bio">Um lugar para ser ouvido, acolhido e lembrado. Refeições, escuta e convivência · seg, qua e sex.</p>
+            <span class="phone-btn">Quero apoiar</span>
+            <div class="feed">
+              <div class="post photo"><picture><source srcset="img/fachada.webp" type="image/webp"><img src="img/fachada.jpg" alt="Post com a fachada da Casa do Afeto" loading="lazy"></picture></div>
+              <div class="post t1"><em>R$ 7.500</em>prestação de contas do mês</div>
+              <div class="post photo"><picture><source srcset="img/cardapio.webp" type="image/webp"><img src="img/cardapio.jpg" alt="Post com o cardápio do mês" loading="lazy"></picture></div>
+              <div class="post t2"><em>Receita da memória</em>bolo de fubá</div>
+              <div class="post t3"><em>Comida boa</em>não vai para o lixo</div>
+              <div class="post t4"><em>Vem ser</em>voluntário</div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="phone-caption">perfil ilustrativo da Casa do Afeto nas redes</figcaption>
+      </figure>
+    </div>
   </section>
 
   <section id="diferencial" class="screen dark">
@@ -1398,7 +1922,20 @@
       <div class="card-field"><dt>Compromissos</dt><dd>ODS 2, 3, 5, 6 e 10 da Agenda 2030 da ONU</dd></div>
       <div class="card-field"><dt>Rende</dt><dd>um lugar para ser ouvido, acolhido e lembrado</dd></div>
     </dl>
-    <p class="footer-note reveal">Fotografias ilustrativas: Pexels (uso livre). Fachada, cardápio e planta baixa: imagens conceituais do projeto. Dados: Ministério do Desenvolvimento e Assistência Social / CadÚnico (jun. 2026) e FAO (2022 a 2024). Legislação: Lei 6.938/1981, Resolução CONAMA 237/1997, LC 182/2021 e Lei 13.019/2014 (Planalto). Ícones ODS: Nações Unidas (brasil.un.org/pt-br/sdgs).</p>
+    <p class="footer-note reveal">Fotografias ilustrativas: Pexels (uso livre). Fachada, cardápio, planta baixa e perfil nas redes: imagens conceituais do projeto. Dados: CadÚnico (BH, 2026), MDS (jun. 2026) e FAO (2022 a 2024). DRE, orçamento e captação: autoral (2026). Legislação: Código Civil, Lei 13.019/2014, RDC Anvisa 216/2004, Lei 14.016/2020, CLT, Lei 9.608/1998 e LGPD (Lei 13.709/2018). Ícones ODS: Nações Unidas (brasil.un.org/pt-br/sdgs).</p>
+  </section>
+
+  <section id="obrigado" class="screen dark encerramento">
+    <p class="kicker reveal">encerramento</p>
+    <h2 class="reveal">Obrigado pela escuta.</h2>
+    <p class="closing-line reveal">Porque acolher também começa assim: ouvindo com atenção.</p>
+    <div class="signatures">
+      <div class="signature reveal"><span class="hand">Kesley Klisman</span><small>Kesley Klisman da Silva</small></div>
+      <div class="signature reveal"><span class="hand">Kevin Santana</span><small>Kevin da Silva Santana</small></div>
+      <div class="signature reveal"><span class="hand">Mariana Rosa</span><small>Mariana Rosa Santos</small></div>
+      <div class="signature reveal"><span class="hand">Maria Eduarda</span><small>Maria Eduarda Silveira Amaral Ferreira</small></div>
+    </div>
+    <p class="institution reveal"><strong>Plano de negócios e inovação da ONG Casa do Afeto</strong><br>Faculdade Senac de Gastronomia · Tecnologia em Gastronomia · Trabalho Interdisciplinar III<br>Prof. orientador: Louis Felipe Vieira · Belo Horizonte, 2026</p>
   </section>
 
 </main>
